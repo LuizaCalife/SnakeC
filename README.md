@@ -2,10 +2,10 @@
 Projeto criado para cadeira de PIF do segundo periodo da Cesar School.
 
 # Integrantes
-Rubens de Souza Filho
-Maria Luiza Calife
+Rubens de Souza Filho,
+Maria Luiza Calife e
 Gabriel Reinaldo Roma
 
 # Professores
-Pamela Bezerra
+Pamela Bezerra e
 Tiago Barros
