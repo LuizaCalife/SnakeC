@@ -1,11 +1,11 @@
 # SnakeC
 Projeto criado para cadeira de PIF do segundo periodo da Cesar School.
 
-#Integrantes
+# Integrantes
 Rubens de Souza Filho
 Maria Luiza Calife
 Gabriel Reinaldo Roma
 
-#Professores
+# Professores
 Pamela Bezerra
 Tiago Barros
