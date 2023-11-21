@@ -10,6 +10,5 @@ Gabriel Reinaldo Roma
 
 # Professores
 
-Pamela Bezerra
-Tiago Barros
+Pamela Bezerra, Tiago Barros
 
