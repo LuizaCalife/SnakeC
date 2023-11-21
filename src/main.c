@@ -15,7 +15,7 @@ typedef struct {
     int x, y;
 } SnakeSegment;
 
-SnakeSegment snake[SNAKE_MAX_LENGTH];
+SnakeSegment* snake;
 int snakeLength = 1;
 int snakeDirection = 1; // 1: direita, 2: esquerda, 3: cima, 4: baixo
 
@@ -24,8 +24,13 @@ int foodX, foodY;
 int startTime;
 
 void initializeSnake() {
+    snake = (SnakeSegment*)malloc(SNAKE_MAX_LENGTH * sizeof(SnakeSegment));
     snake[0].x = MAXX / 2;
     snake[0].y = MAXY / 2;
+}
+
+void freeSnake() {
+    free(snake);
 }
 
 void generateFood() {
@@ -194,6 +199,7 @@ int main() {
                 initializeSnake();
                 generateFood();
                 gameLoop();
+                freeSnake();
                 break;
             case 2:
                 snakeLength = 0; // Encerra o jogo
