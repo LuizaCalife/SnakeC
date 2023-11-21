@@ -2,7 +2,7 @@
 Command Line Interface library, for developing CLI applications and games in C. It has functions to access keyboard, screen and manage timing tasks.
 
 ## Requirements
-- This library works with the follwing OS:
+- This library works with the follwing OS :
    - Linux based (Ubuntu, etc)
    - MacOS
 - It is necessary to have GCC installed.
