@@ -39,12 +39,5 @@ Passo 3: Execução
 
 Substitua change-me pelo nome que você definiu no passo anterior, se necessário.
 
-Observações:
-
-Certifique-se de ter o GCC instalado em seu sistema.
-Verifique se os arquivos necessários estão nos diretórios corretos (src para arquivos-fonte e include para arquivos de cabeçalho).
-Caso haja erros durante a compilação, verifique as mensagens de erro e corrija os problemas nos arquivos-fonte.
-
-
 
 
