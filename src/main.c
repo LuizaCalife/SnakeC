@@ -7,7 +7,7 @@
 
 #define SNAKE_MAX_LENGTH 100
 #define FOOD_CHAR '@'
-#define BORDER_CHAR '#'
+#define BORDER_CHAR '*'
 #define EMPTY_CHAR ' ' 
 #define SNAKE_BODY 'O'
 
@@ -19,9 +19,27 @@ SnakeSegment* snake;
 int snakeLength = 1;
 int snakeDirection = 1;
 
+int score = -10;
+
 int foodX, foodY;
 
-int startTime;
+void updateScore() {
+    screenGotoxy(MINX, MAXY);
+    printf("Pontuação: %d\n", score);
+}
+
+void initializeGame() {
+    screenInit(0);
+    keyboardInit();
+    timerInit(60);
+    score = -10;
+}
+
+void endGame() {
+    keyboardDestroy();
+    screenDestroy();
+    timerDestroy();
+}
 
 void initializeSnake() {
     snake = (SnakeSegment*)malloc(SNAKE_MAX_LENGTH * sizeof(SnakeSegment));
@@ -37,6 +55,7 @@ void generateFood() {
 	
 	foodX = rand() % (MAXX - MINX -1) + MINX + 1;
 	foodY = rand() % (MAXY - MINY -1) + MINY + 1;
+    score += 10;
 }
 
 void drawFood() {
@@ -156,6 +175,7 @@ void checkCollisionAndMove() {
     drawBorders();
     drawFood();
     drawSnake();
+    updateScore();
     screenUpdate();
 
     if (checkCollision()) {
@@ -163,39 +183,50 @@ void checkCollisionAndMove() {
     }
 }
 
-void showMenu() {
-    screenClear();
-    printf("1. Iniciar Jogo\n");
-    printf("2. Sair\n");
-}
 
 void gameLoop() {
-    startTime = timerTimeOver();
+    int playAgain = 1;
+    while(playAgain) {
+        while (snakeLength > 0) {
+            handleInput();
 
-    while (snakeLength > 0) {
-        handleInput();
-
-        if (timerTimeOver() == 1) {
+            if (timerTimeOver() == 1) {
                 checkCollisionAndMove();
-                startTime = timerTimeOver();
+            }
         }
+
+        printf("GAME OVER!!! Pontuação final: %d\n", score);
+        printf("Deseja jogar novamente? (1-SIM, 0-NÃO): ");
+        scanf("%d",&playAgain);
+        if(playAgain == 1) {
+            snakeLength = 1;
+            endGame();
+            initializeGame();
+            score = 0;
+        }
+    
     }
 }
 
+int showMenu() {
+    int menuChoice;
+    printf("1. Iniciar Jogo\n");
+    printf("2. Sair\n");
+    scanf("%d",&menuChoice);
+    return menuChoice;
+}
+
 int main() {
-    screenInit(0);
-    keyboardInit();
-    timerInit(100);
+    initializeGame();
 
     int choice;
 
     do {
-        showMenu();
-        scanf("%d", &choice);
+        choice = showMenu();
 
         switch (choice) {
             case 1:
-			screenClear();
+			    screenClear();
                 initializeSnake();
                 generateFood();
                 gameLoop();
@@ -205,14 +236,12 @@ int main() {
                 snakeLength = 0;
                 break;
             default:
-                printf("Opção Inválida.");
+                printf("Opção Inválida.\n\n");
         }
 
     } while (snakeLength > 0);
 
-    keyboardDestroy();
-    screenDestroy();
-    timerDestroy();
+    endGame();
 
     return 0;
 }
