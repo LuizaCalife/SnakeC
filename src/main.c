@@ -31,7 +31,7 @@ int snakeDirection = 1;
 int score = -10;
 
 int foodX, foodY;
-
+//Funcoes para o ranking 
 void loadRanking() {
     FILE *file = fopen("ranking.dat", "rb");
     if (file != NULL) {
@@ -69,12 +69,12 @@ void showRanking() {
     }
     printf("\n");
 }
-
+//funcao de atualizar o score de acordo com a quantidade de comida (10 em 10)
 void updateScore() {
     screenGotoxy(MINX, MAXY);
     printf("Pontuação: %d\n", score);
 }
-
+// funcoes base
 void initializeGame() {
     screenInit(0);
     keyboardInit();
@@ -97,14 +97,14 @@ void initializeSnake() {
 void freeSnake() {
     free(snake);
 }
-
+// geracao da comida de forma aleatoria no mapa
 void generateFood() {
 	
 	foodX = rand() % (MAXX - MINX -1) + MINX + 1;
 	foodY = rand() % (MAXY - MINY -1) + MINY + 1;
     score += 10;
 }
-
+// desenho da comida :/
 void drawFood() {
 	screenGotoxy(foodX, foodY);
 	printf("%c", FOOD_CHAR);
@@ -123,7 +123,7 @@ void drawSnake() {
         printf("%c", SNAKE_BODY);
 	}
 }
-
+// bordas do jogo
 void drawBorders() {
 	screenSetColor(WHITE, BLACK);
 	for(int i = MINX; i <= MAXX; i++) {
@@ -140,7 +140,7 @@ void drawBorders() {
 		printf("%c", BORDER_CHAR);
 	}
 }
-
+// movimentacao da cobra
 void moveSnake() {
 
 	int tailX = snake[snakeLength - 1].x;
@@ -149,7 +149,7 @@ void moveSnake() {
 	for(int i = snakeLength - 1; i > 0; i--) {
 		snake[i] = snake[i-1];
 	}
-
+// base do direcionamento , definindo se ela vai pra cima ou pra baixo pro lado ou pro outro
     switch (snakeDirection) {
         case 1:
             snake[0].x = (snake[0].x + 1 > MAXX - 1) ? MINX + 1 : snake[0].x + 1;
@@ -168,7 +168,7 @@ void moveSnake() {
 	screenGotoxy(tailX, tailY);
 	printf("%c", EMPTY_CHAR);
 }
-
+// direcionamento no teclado ! 
 void handleInput() {
     if (keyhit()) {
         int ch = readch();
@@ -191,7 +191,7 @@ void handleInput() {
         }
     }
 }
-
+// colisao da cobra
 int checkCollision() {
     if (snake[0].x <= MINX || snake[0].x >= MAXX || snake[0].y <= MINY || snake[0].y >= MAXY) {
         return 1; 
@@ -202,7 +202,7 @@ int checkCollision() {
             return 1; 
         }
     }
-
+// cobra aumentar de tamanho pois comeu
 	if (snake[0].x == foodX && snake[0].y == foodY) {
 		if(snakeLength < SNAKE_MAX_LENGTH) {
 			snake[snakeLength].x = snake[snakeLength - 1].x;
@@ -228,7 +228,7 @@ void checkCollisionAndMove() {
         snakeLength = 0; 
     }
 }
-
+// reiniciar o jogo
 void gameLoop() {
     int playAgain = 1;
 
@@ -240,7 +240,7 @@ void gameLoop() {
                 checkCollisionAndMove();
             }
         }
-
+//inputs e prints do ranking 
         printf("GAME OVER!!! Pontuação final: %d\n", score);
         showRanking();
         printf("Digite seu nome para o ranking: ");
@@ -260,7 +260,7 @@ void gameLoop() {
     
     }
 }
-
+//menu base
 int showMenu() {
     int menuChoice;
     printf("1. Iniciar Jogo\n");
