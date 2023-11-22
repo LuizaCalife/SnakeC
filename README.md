@@ -12,10 +12,6 @@ Pamela Bezerra, Tiago Barros
 
 # Instrução de compilação
 
-Instruções de Compilação para SnakeC:
-
-Estas instruções são destinadas a compilar o código-fonte do SnakeC em sua máquina local.
-
 Passo 1: Acesso ao Diretório
 
 Abra um terminal e navegue até o diretório onde os arquivos do SnakeC estão localizados usando o comando cd:
